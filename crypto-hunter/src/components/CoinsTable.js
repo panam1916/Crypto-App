@@ -254,12 +254,10 @@ export default function CoinsTable() {
   });
   
   const CoinsTable = () => {
-    const [coins, setCoins] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
   
-    const { currency, symbol } = CryptoState();
+    const { currency, symbol, coins,loading ,fetchCoins} = CryptoState();
   
     const navigate = useNavigate(); 
   
@@ -272,21 +270,7 @@ export default function CoinsTable() {
       },
     });
   
-    const fetchCoins = async () => {
-      try{
-      setLoading(true);
-      const { data } = await axios.get(CoinList(currency));
-      console.log(data);
-  
-      setCoins(data);
-      setLoading(false);
-      }
-      catch(error)
-      {
-        console.error('Error fetching coins:', error);
-      }
-    };
-  
+   
     useEffect(() => {
       fetchCoins();
     }, [currency]);
