@@ -57,6 +57,8 @@ import React from 'react';
 import { AppBar, Container, MenuItem, Select, ThemeProvider, Toolbar, Typography, createTheme, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CryptoState } from '../CryptoContext';
+import AuthModal from './Authentication/AuthModal';
+import UserSidebar from './Authentication/UserSideBar';
 
 const Title = styled(Typography)({
   flex: 1,
@@ -68,7 +70,7 @@ const Title = styled(Typography)({
 
 const Header = () => {
   const navigate = useNavigate();
-  const { currency, setCurrency } = CryptoState();
+  const { currency, setCurrency,user } = CryptoState();
   
   const darkTheme = createTheme({
     palette: {
@@ -94,7 +96,7 @@ const Header = () => {
               sx={{
                 width: 100,
                 height: 40,
-                marginRight: 15,
+                marginRight: 1,
               }}
               value={currency}
               onChange={handleChange}
@@ -102,6 +104,7 @@ const Header = () => {
               <MenuItem value={"USD"}>INR</MenuItem>
               <MenuItem value={"INR"}>USD</MenuItem>
             </Select>
+            {user?<UserSidebar/>:<AuthModal />}
           </Toolbar>
         </Container>
       </AppBar>
